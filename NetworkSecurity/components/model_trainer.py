@@ -23,15 +23,15 @@ from sklearn.ensemble import (
     GradientBoostingClassifier,
     RandomForestClassifier,
 )
-import mlflow
-from urllib.parse import urlparse
+#import mlflow
+#from urllib.parse import urlparse
 
-import dagshub
+#import dagshub
 #dagshub.init(repo_owner='krishnaik06', repo_name='networksecurity', mlflow=True)
 
-os.environ["MLFLOW_TRACKING_URI"]="https://dagshub.com/krishnaik06/networksecurity.mlflow"
-os.environ["MLFLOW_TRACKING_USERNAME"]="krishnaik06"
-os.environ["MLFLOW_TRACKING_PASSWORD"]="7104284f1bb44ece21e0e2adb4e36a250ae3251f"
+##os.environ["MLFLOW_TRACKING_URI"]="https://dagshub.com/krishnaik06/networksecurity.mlflow"
+#os.environ["MLFLOW_TRACKING_USERNAME"]="krishnaik06"
+#os.environ["MLFLOW_TRACKING_PASSWORD"]="7104284f1bb44ece21e0e2adb4e36a250ae3251f"
 
 
 
@@ -90,20 +90,20 @@ class ModelTrainer:
                 # 'criterion':['gini', 'entropy', 'log_loss'],
                 
                 # 'max_features':['sqrt','log2',None],
-                'n_estimators': [8,16,32,128,256]
+                'n_estimators': [50,100]
             },
             "Gradient Boosting":{
                 # 'loss':['log_loss', 'exponential'],
-                'learning_rate':[.1,.01,.05,.001],
-                'subsample':[0.6,0.7,0.75,0.85,0.9],
+                'learning_rate':[0.05,0.1],
+                'subsample':[0.8],
                 # 'criterion':['squared_error', 'friedman_mse'],
                 # 'max_features':['auto','sqrt','log2'],
-                'n_estimators': [8,16,32,64,128,256]
+                'n_estimators': [50,100]
             },
             "Logistic Regression":{},
             "AdaBoost":{
-                'learning_rate':[.1,.01,.001],
-                'n_estimators': [8,16,32,64,128,256]
+                'learning_rate':[0.05,0.1],
+                'n_estimators': [50,100]
             }
             
         }
@@ -124,13 +124,13 @@ class ModelTrainer:
         classification_train_metric=get_classification_score(y_true=y_train,y_pred=y_train_pred)
         
         ## Track the experiements with mlflow
-        self.track_mlflow(best_model,classification_train_metric)
+      # self.track_mlflow(best_model,classification_train_metric)
 
 
         y_test_pred=best_model.predict(x_test)
         classification_test_metric=get_classification_score(y_true=y_test,y_pred=y_test_pred)
 
-        self.track_mlflow(best_model,classification_test_metric)
+       # self.track_mlflow(best_model,classification_test_metric)
 
         preprocessor = load_object(file_path=self.data_transformation_artifact.transformed_object_file_path)
             

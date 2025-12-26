@@ -16,8 +16,7 @@ from networksecurity.entity.artifact_entity import (
 from networksecurity.entity.config_entity import DataTransformationConfig
 from networksecurity.exception.exception import NetworkSecurityException 
 from networksecurity.logging.logger import logging
-from networksecurity.utils.main_utils.utils import save_numpy_array_data, save_object
-
+from networksecurity.utils.main_utils.utils import save_numpy_array_data,save_object
 
 class DataTransformation:
     def __init__(self,data_validation_artifact:DataValidationArtifact,
@@ -35,9 +34,9 @@ class DataTransformation:
         except Exception as e:
             raise NetworkSecurityException(e, sys)
         
-    def get_data_transformer_object(self)->Pipeline:
+    def get_data_transformer_object(cls)->Pipeline:
         """
-        It initialises a KNNImputer object with the parameters specified in the training_pipeline.py file
+        It initialise a KNNImputer object with the parameters specified in the training_pipeline.py file
         and returns a Pipeline object with the KNNImputer object as the first step.
 
         Args:
@@ -47,7 +46,7 @@ class DataTransformation:
           A Pipeline object
         """
         logging.info(
-            "Entered get_data_trnasformer_object method of Trnasformation class"
+            "Entered get_data_transformer_object method of Transformation class"
         )
         try:
            imputer:KNNImputer=KNNImputer(**DATA_TRANSFORMATION_IMPUTER_PARAMS)
@@ -60,7 +59,7 @@ class DataTransformation:
             raise NetworkSecurityException(e,sys)
 
         
-    def initiate_data_transformation(cls)->DataTransformationArtifact:
+    def initiate_data_transformation(self)->DataTransformationArtifact:
         logging.info("Entered initiate_data_transformation method of DataTransformation class")
         try:
             logging.info("Starting data transformation")
@@ -108,3 +107,4 @@ class DataTransformation:
             
         except Exception as e:
             raise NetworkSecurityException(e,sys)
+  
