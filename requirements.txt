@@ -8,5 +8,8 @@ pymongo
 scikit-learn
 dill
 pyaml
+dagshub
+fastapi
+uvicorn
 
 
